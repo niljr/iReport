@@ -1,0 +1,21 @@
+extends layout
+
+block content
+	.inner
+		h2 Top #{reports.length} Reports
+		table.table
+			thead
+				td photo
+				td ranking
+				td title
+				td comments
+				td Average Rating
+			each report, i in reports
+				tr
+					td
+						a(href=`/report/${report.slug}`)
+							img(width=200 src=`/uploads/${report.photo || 'store.png'}` alt=report.title)
+					td #{i + 1}
+					td: a(href=`/report/${report.slug}`)= report.title
+					td= report.comments.length
+					td #{Math.round(report.averageRating * 10) / 10} / 5

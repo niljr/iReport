@@ -1,0 +1,30 @@
+mixin reportForm(report = {})
+	form(action=`/add/${report._id || ''}` method="POST" class="card" 
+	enctype="multipart/form-data")
+		pre= h.dump(report)
+		label(for="title") Title
+		input(type="text" name="title" value=report.title)
+		label(for="description") Description
+		textarea(name="description")= report.description
+		//- Image upload
+		label(for="photo") Photo
+			input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+			if report.photo
+				img(src=`/uploads/${report.photo}`, alt=report.title width=200)
+		//- address, lng and lat
+		label(for="address") Address
+		input(type="text" id="address" name="location[address]" value=(report.location && report.location.address))
+		label(for="lng") Address Lng
+		input(type="text" id="lng" name="location[coordinates][0]" value=(report.location && report.location.coordinates[0]) required)
+		label(for="lat") Address Lat
+		input(type="text" id="lat" name="location[coordinates][1]" value=(report.location && report.location.coordinates[1]) required)
+		
+		- const choices = ['Road', 'Drainage', 'Garbage', 'Streetlight', 'War']
+		- const tags = report.tags || []
+		ul.tags
+			each choice in choices
+				.tag.tag__choice
+					input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
+					label(for=choice) #{choice}
+		input(type="submit" value="Save →" class="button")
+

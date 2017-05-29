@@ -1,0 +1,34 @@
+extends layout
+
+include mixins/_commentForm
+include mixins/_comment
+
+block content
+	.single
+		.single__hero
+			img.single__image(src=`/uploads/${report.photo || 'store.png'}`)
+			h2.title.title--single
+				a(href=`/reports/${report.slug}`) #{report.title}
+
+			img.single__image(src=`/uploads/${report.photo || 'store.png'}`)
+
+	.signle__details.inner
+		img.single__map(src=h.staticMap(report.location.coordinates))
+		p.single__location= report.location.address
+		p= report.description
+
+		if report.tags
+			ul.tags
+				each tag in report.tags
+					li.tag
+						a.tag__link(href=`/tags/${tags}`)
+							span.tag__text ##{tag}
+
+		if user
+			+commentForm(report)
+
+		if report.comments
+			.reviews
+				each comment in report.comments
+					.review
+						+comment(comment)

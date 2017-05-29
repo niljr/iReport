@@ -1,0 +1,11 @@
+mixin comment(comment)
+	.review__header
+		.review_author
+			img.avatar(src=comment.author.gravatar)
+			p= comment.author.name
+		.review__stars(title=`Rated ${comment.rating} out of 5 stars`)
+			= `★`.repeat(comment.rating)
+			= `★`.repeat(5 - comment.rating)
+		time.review__time(datetime=comment.created)= h.moment(comment.created).fromNow()
+	.review__body
+		p= comment.text

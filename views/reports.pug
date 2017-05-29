@@ -1,0 +1,12 @@
+extends layout
+
+include mixins/_reportCard
+include mixins/_pagination
+
+block content
+  .inner
+    h2= title
+    .stores
+      each report in reports
+        +reportCard(report)
+    +pagination(page, pages, count)
