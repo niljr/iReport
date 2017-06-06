@@ -19,7 +19,7 @@ mixin reportForm(report = {})
 		label(for="lat") Address Lat
 		input(type="text" id="lat" name="location[coordinates][1]" value=(report.location && report.location.coordinates[1]) required)
 		
-		- const choices = ['Road', 'Drainage', 'Garbage', 'Streetlight', 'War']
+		- const choices = ['Garbage','Pothole', 'Stray Dogs', 'Bad Roads', 'Traffic', 'Repair of Streelights', 'Footpaths', 'Waiting Sheds', 'Electric Supply', 'Water Supply']
 		- const tags = report.tags || []
 		ul.tags
 			each choice in choices

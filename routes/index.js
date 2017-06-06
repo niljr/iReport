@@ -6,7 +6,7 @@ const commentController = require('../controllers/commentController');
 const authController = require('../controllers/authController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/', catchErrors(reportController.getReports));
+router.get('/', reportController.homePage);
 router.get('/reports', catchErrors(reportController.getReports));
 router.get('/reports/page/:page', catchErrors(reportController.getReports));
 router.get('/add', authController.isLoggedIn, reportController.addReport);
