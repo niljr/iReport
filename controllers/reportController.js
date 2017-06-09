@@ -17,10 +17,6 @@ const multerOptions = {
   }
 }
 
-exports.homePage = (req, res) => {
-  res.render('index');
-};
-
 exports.addReport = (req, res) => {
   res.render('editReport', { title: 'Add Report' });
 };
@@ -52,7 +48,7 @@ exports.createReport = async (req, res) => {
 
 exports.getReports = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 4;
+  const limit = 9;
   const skip = (page * limit) - limit;
 
   // 1. Query the database for a list of all reports
@@ -104,7 +100,7 @@ exports.updateReport = async (req, res) => {
 };
 
 exports.getReportBySlug = async (req, res, next) => {
-  const report = await Report.findOne({ slug: req.params.slug }).populate('author comments');
+  const report = await Report.findOne({ slug: req.params.slug }).populate('author comments gravatar');
   if (!report) return next();
   res.render('report', { report, title: report.title });
 };
@@ -156,8 +152,8 @@ exports.mapReports = async (req, res) => {
   res.json(reports);
 };
 
-exports.mapPage = (req, res) => {
-  res.render('map', { title: 'Map' });
+exports.homePage = (req, res) => {
+  res.render('index', { title: 'Home' });
 };
 
 exports.heartReport = async (req, res) => {

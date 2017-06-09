@@ -4,31 +4,39 @@ include mixins/_commentForm
 include mixins/_comment
 
 block content
-	.single
-		.single__hero
-			img.single__image(src=`/uploads/${report.photo || 'store.png'}`)
+	.report__content
+		.signle__details.inner
+			.author
+				.author__image
+					img.avatar(src=report.author.gravatar + 'd=retro')
+				.author__data
+					span.name #{report.author.name}
+					time.review__time(datetime=report.created)= h.moment(report.created).fromNow()
+		
 			h2.title.title--single
-				a(href=`/reports/${report.slug}`) #{report.title}
+					a #{report.title}
+			.single__hero
+				a.signle__image(href=`/uploads/${report.photo || 'store.png'}`, data-lightbox="image-1")
+					img.single__image(src=`/uploads/${report.photo || 'store.png'}`)
+					
+			p= report.description
 
-			img.single__image(src=`/uploads/${report.photo || 'store.png'}`)
+			if report.tags
+				ul.tags
+					each tag in report.tags
+						li.tag
+							a.tag__link(href=`/tags/${tags}`)
+								span.tag__text ##{tag}
+			if user
+				+commentForm(report)
 
-	.signle__details.inner
-		img.single__map(src=h.staticMap(report.location.coordinates))
-		p.single__location= report.location.address
-		p= report.description
+			if report.comments
+				.reviews
+					each comment in report.comments
+						.review
+							+comment(comment)
+		.single__location
+			span.location Location
+			img.single__map(src=h.staticMap(report.location.coordinates))
+			p= report.location.address
 
-		if report.tags
-			ul.tags
-				each tag in report.tags
-					li.tag
-						a.tag__link(href=`/tags/${tags}`)
-							span.tag__text ##{tag}
-
-		if user
-			+commentForm(report)
-
-		if report.comments
-			.reviews
-				each comment in report.comments
-					.review
-						+comment(comment)

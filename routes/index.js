@@ -52,7 +52,7 @@ router.post('/account/reset/:token',
   authController.confirmedPasswords,
   catchErrors(authController.update)
 );
-router.get('/map', reportController.mapPage );
+// router.get('/map', reportController.mapPage );
 router.get('/hearts', authController.isLoggedIn, catchErrors(reportController.getHearts));
 router.post('/comments/:id', 
   authController.isLoggedIn, 

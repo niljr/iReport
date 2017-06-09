@@ -3,7 +3,9 @@ html
   head
     title= `${title} | ${h.siteName}`
     link(rel='stylesheet', href='/dist/style.css')
-    link(rel='stylesheet', href='/dist/semantic.min.css')
+    link(rel='stylesheet', href='/dist/custom.css')
+    link(rel='stylesheet', href='/dist/lightbox.css')
+    //- link(rel='stylesheet', href='/dist/semantic.min.css')
     link(rel="shortcut icon" type="image/png" href="/images/icons/doughnut.png")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
@@ -51,5 +53,7 @@ html
       block content
 
     block scripts
+      script(src='https://code.jquery.com/jquery-3.2.1.min.js')
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
       script(src="/dist/App.bundle.js")
+      script(src="/dist/lightbox.js")

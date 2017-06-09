@@ -1,7 +1,13 @@
 mixin reportCard(report = {})
   .store
     .store__hero
-      .store__actions
+      
+      img(src=`/uploads/${report.photo || 'store.png'}`)
+      h2.title
+        a(href=`/report/${report.slug}`) #{report.title}
+    .store__details
+      p= report.description.split(' ').slice(0, 25).join(' ')
+    .store__actions
         if user
           .store__action.store__action--heart
             form.heart(method="POST" action=`/api/reports/${report._id}/heart`)
@@ -18,8 +24,3 @@ mixin reportCard(report = {})
             != h.icon('review')
             span= report.comments.length
             
-      img(src=`/uploads/${report.photo || 'store.png'}`)
-      h2.title
-        a(href=`/report/${report.slug}`) #{report.title}
-    .store__details
-      p= report.description.split(' ').slice(0, 25).join(' ')
